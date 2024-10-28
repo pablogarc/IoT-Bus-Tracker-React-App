@@ -75,6 +75,7 @@ const MapComponent = () => {
           style={{ height: "75vh", width: "100wh" }}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
           {option === "Fuentes-Milenio" && (
             <GeoJSON
               data={routeFuentesAndMilenio as any}
