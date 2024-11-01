@@ -8,7 +8,7 @@ function App() {
     <>
       <nav className="flex justify-around p-4">
         <div>
-          <h1>Leaflet React App</h1>
+          <h1>IoT-Bus-Tracker-React-App</h1>
         </div>
         <div className="flex gap-10">
           <div className="hover:bg-white hover:text-black hover:rounded-full transition-all">
