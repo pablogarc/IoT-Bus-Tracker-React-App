@@ -1,5 +1,4 @@
-import React from 'react';
-import { CurrencyDollarIcon } from '@heroicons/react/24/solid';
+/* import { CurrencyDollarIcon } from '@heroicons/react/24/solid'; */
 
 const Cashback = () => {
     return (
