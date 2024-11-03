@@ -19,11 +19,11 @@ function App() {
   return (
     <>
       {/* Barra de Navegación */}
-      <nav className="flex justify-around p-4 bg-gray-800 text-white">
+      <nav className="flex justify-around items-center p-4 bg-gray-800 text-white">
         <div>
           <h1 className="text-xl font-bold">IoT-Bus-Tracker-React-App</h1>
         </div>
-        <div className="flex gap-10">
+        <div className="flex gap-5">
           {/* Home */}
           <div className="flex items-center hover:bg-blue-500 hover:rounded-full transition-all">
             <Link to="/" className="p-3 flex items-center gap-2">
