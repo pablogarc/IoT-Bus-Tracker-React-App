@@ -4,26 +4,20 @@ import Home from "./pages/Home/Home";
 import Map from "./pages/Map/Map";
 import Cashback from "./pages/Cashback/Cashback";
 import Security from "./pages/Security/Security";
+import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import ReloadCard from "./pages/ReloadCard/ReloadCard";
-import {
-  HomeIcon,
-  MapIcon,
-  CurrencyDollarIcon,
-  ExclamationTriangleIcon,
-  BoltIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
+import { HomeIcon, MapIcon, CurrencyDollarIcon, ExclamationTriangleIcon, UserIcon, BoltIcon } from '@heroicons/react/24/solid';
 
 function App() {
   return (
     <>
       {/* Barra de Navegación */}
-      <nav className="flex justify-around items-center p-4 bg-gray-800 text-white">
+      <nav className="flex justify-around p-4 bg-gray-800 text-white">
         <div>
           <h1 className="text-xl font-bold">IoT-Bus-Tracker-React-App</h1>
         </div>
-        <div className="flex gap-5">
+        <div className="flex gap-10">
           {/* Home */}
           <div className="flex items-center hover:bg-blue-500 hover:rounded-full transition-all">
             <Link to="/" className="p-3 flex items-center gap-2">
@@ -74,14 +68,14 @@ function App() {
         </div>
       </nav>
 
-      {/* Rutas */}
       <Routes>
         <Route index element={<Home />} />
         <Route path="/map" element={<Map />} />
         <Route path="/cashback" element={<Cashback />} />
         <Route path="/security" element={<Security />} />
+        <Route path="/reload-card" element={<ReloadCard />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/reload" element={<ReloadCard />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
