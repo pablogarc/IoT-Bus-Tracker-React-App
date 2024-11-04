@@ -6,7 +6,6 @@ import Cashback from "./pages/Cashback/Cashback";
 import Security from "./pages/Security/Security";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
 import ReloadCard from "./pages/ReloadCard/ReloadCard";
 import Logo from "/logo.jpg";
 
