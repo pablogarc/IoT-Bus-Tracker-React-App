@@ -1,5 +1,5 @@
 const Home = () => {
-  const githubUrl = "https://github.com/pablogarc/leaflet-map-react.git";
+  const githubUrl = "https://github.com/pablogarc/IoT-Bus-Tracker-React-App";
 
   return (
     <>
@@ -44,10 +44,10 @@ const Home = () => {
           To run the app, clone the repository and run the following commands:
         </p>
         <pre>
-          <code>git clone url</code>
+          <code>git clone https://github.com/pablogarc/IoT-Bus-Tracker-React-App.git</code>
         </pre>
         <pre>
-          <code>cd leaflet-map-react</code>
+          <code>cd IoT-Bus-Tracker-React-App</code>
         </pre>
         <pre>
           <code>npm install</code>
