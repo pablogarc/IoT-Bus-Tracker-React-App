@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ExclamationTriangleIcon, MapIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 
 const Security = () => {
