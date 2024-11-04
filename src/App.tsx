@@ -5,25 +5,43 @@ import Map from "./pages/Map/Map";
 import Cashback from "./pages/Cashback/Cashback";
 import Security from "./pages/Security/Security";
 import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 import ReloadCard from "./pages/ReloadCard/ReloadCard";
+import Logo from "/logo.jpg";
+
+// Iconos de Heroicons o tu biblioteca de iconos
 import {
   HomeIcon,
   MapIcon,
   CurrencyDollarIcon,
   ExclamationTriangleIcon,
-  BoltIcon,
+  CreditCardIcon,
   UserIcon,
-} from "@heroicons/react/24/solid";
+} from '@heroicons/react/24/solid';
 
 function App() {
   return (
     <>
-      {/* Barra de Navegación */}
-      <nav className="flex justify-around p-4 bg-gray-800 text-white">
-        <div>
-          <h1 className="text-xl font-bold">IoT-Bus-Tracker-React-App</h1>
+      <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
+        {/* Contenedor del logo y título */}
+        <div className="flex items-center gap-4">
+          {/* Logo aún más grande */}
+          <img src={Logo} alt="Movi+" className="h-20 w-22" />
+
+          {/* Título principal un poco más grande */}
+          <h1 className="text-4xl font-bold text-green-500 transition-all">
+            Movi+
+            <span className="ml-3 text-2xl font-normal text-white">
+              {/* Efecto hover solo en las palabras "más" */}
+              <span className="hover:text-green-400 transition-all"> Más </span> seguridad,
+              <span className="hover:text-green-400 transition-all"> más </span> recompensas,
+              <span className="hover:text-green-400 transition-all"> más </span> movilidad
+            </span>
+          </h1>
         </div>
-        <div className="flex gap-10">
+
+        {/* Links de navegación */}
+        <div className="flex gap-8">
           {/* Home */}
           <div className="flex items-center hover:bg-blue-500 hover:rounded-full transition-all">
             <Link to="/" className="p-3 flex items-center gap-2">
@@ -33,9 +51,9 @@ function App() {
           </div>
 
           {/* Map */}
-          <div className="flex items-center hover:bg-orange-500 hover:rounded-full transition-all">
+          <div className="flex items-center hover:bg-yellow-500 hover:rounded-full transition-all">
             <Link to="/map" className="p-3 flex items-center gap-2">
-              <MapIcon className="h-5 w-5 text-orange-400" />
+              <MapIcon className="h-5 w-5 text-yellow-400" />
               Map
             </Link>
           </div>
@@ -56,31 +74,31 @@ function App() {
             </Link>
           </div>
 
-          {/* Login */}
-          <div className="flex items-center hover:bg-purple-500 hover:rounded-full transition-all">
-            <Link to="/login" className="p-3 flex items-center gap-2">
-              <UserIcon className="h-5 w-5 text-purple-500" />
-              Login
+          {/* Recargar Tarjeta */}
+          <div className="flex items-center hover:bg-yellow-500 hover:rounded-full transition-all">
+            <Link to="/reload" className="p-3 flex items-center gap-2">
+              <CreditCardIcon className="h-5 w-5 text-yellow-400" />
+              Recargar
             </Link>
           </div>
 
-          {/* Recargar Tarjeta (RFID) */}
-          <div className="flex items-center hover:bg-yellow-400 hover:rounded-full transition-all">
-            <Link to="/reload" className="p-3 flex items-center gap-2">
-              <BoltIcon className="h-5 w-5 text-yellow-400" />
-              Recargar Tarjeta
+          {/* Login / Register */}
+          <div className="flex items-center hover:bg-purple-500 hover:rounded-full transition-all">
+            <Link to="/login" className="p-3 flex items-center gap-2">
+              <UserIcon className="h-5 w-5 text-purple-400" />
+              Login
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Rutas */}
       <Routes>
         <Route index element={<Home />} />
         <Route path="/map" element={<Map />} />
         <Route path="/cashback" element={<Cashback />} />
         <Route path="/security" element={<Security />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/reload" element={<ReloadCard />} />
       </Routes>
     </>
