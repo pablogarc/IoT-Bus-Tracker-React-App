@@ -1,4 +1,19 @@
-/* Aumenta el tamaño de la fuente y centra el texto */
+/* Security.css */
+
+/* Botones principales */
+.button-container button {
+    width: 200px;
+    height: 100px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+/* Tabla de reportes estilo dashboard */
 .tabla-reportes {
     width: 100%;
     border-collapse: collapse;
@@ -6,31 +21,25 @@
     background-color: #343a40;
     color: white;
     font-size: 1.1em;
-    /* Aumenta el tamaño de fuente */
+    text-align: center;
 }
 
 .tabla-reportes th,
 .tabla-reportes td {
     padding: 12px;
-    /* Ajusta el espaciado */
     border: 1px solid #ddd;
-    text-align: center;
-    /* Centra el texto */
 }
 
 .tabla-reportes th {
     background-color: #282c34;
-    color: white;
 }
 
-/* Modificaciones adicionales para el modal */
 .modal-header {
     background-color: #d9534f;
     color: white;
     text-align: center;
     font-size: 1.3em;
     padding: 10px;
-    border-bottom: none;
 }
 
 .modal-body {
@@ -40,26 +49,23 @@
     color: #333;
 }
 
-.form-control {
-    background-color: #f0f0f0;
-    border: 1px solid #ced4da;
-    font-size: 1em;
-    color: #333;
-}
-
 button.btn-enviar {
     background-color: #d9534f;
     color: white;
     border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 button.btn-cancelar {
     background-color: #6c757d;
     color: white;
     border: none;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
-/* Hover Effects */
 button.btn-enviar:hover {
     background-color: #c9302c;
 }
