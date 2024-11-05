@@ -33,35 +33,39 @@ const MapComponent = () => {
       { coords: [20.6110, -103.4155], passengers: 15 },
     ],
     "scheifler": [
-      { coords: [20.6132, -103.4151], passengers: 20 },
+      { coords: [20.6132, -103.4151], passengers: 22 },
     ],
     "colon": [
       { coords: [20.6095, -103.4142], passengers: 10 },
     ],
   };
 
+  const handleRouteChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    // Al cambiar de ruta, primero limpiamos `geoData` y `busData` temporalmente
+    setGeoData(null);
+    setBusData([]);
+    setSelectedRoute(e.target.value); // Establecemos la nueva ruta seleccionada
+  };
+
+  // Efecto para cargar los datos de la nueva ruta después de la limpieza
   useEffect(() => {
+    // Solo carga los datos si `selectedRoute` es diferente de "none"
     if (selectedRoute !== "none") {
-      setGeoData(routeOptions[selectedRoute]);  // Selecciona el GeoJSON correcto
-      setBusData(routeBuses[selectedRoute]);
-      setCenter(routeBuses[selectedRoute][0].coords); // Cambia el centro según la primera coordenada de la ruta
-    } else {
-      setGeoData(null);
-      setBusData([]);
+      // Introducimos un pequeño retraso para asegurarnos de que la limpieza se complete antes de cargar
+      setTimeout(() => {
+        setGeoData(routeOptions[selectedRoute]);
+        setBusData(routeBuses[selectedRoute]);
+        setCenter(routeBuses[selectedRoute][0].coords); // Cambia el centro según la primera coordenada de la ruta
+      }, 100); // 100 ms es suficiente para simular la limpieza
     }
   }, [selectedRoute]);
 
-  const handleRouteChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedRoute(e.target.value);
-  };
-
   const getPassengerEmoji = (count: number) => {
-    if (count <= 10) return "😊";
-    if (count <= 20) return "😐";
-    return "😡";
+    if (count <= 10) return "😊 Bien";
+    if (count <= 20) return "😐 Medio";
+    return "😡 Lleno";
   };
 
-  // Componente para ajustar el centro del mapa cada vez que cambia `center`
   const SetViewOnRouteChange = () => {
     const map = useMap();
     useEffect(() => {
@@ -71,68 +75,58 @@ const MapComponent = () => {
   };
 
   return (
-    <>
-      <div className="p-4">
-        {/* Título de la sección */}
-        <h2 className="text-3xl font-bold text-center mb-2 text-green-500">
-          Mapa de Rutas de Transporte
-        </h2>
-        {/* Texto introductorio */}
-        <p className="text-center text-gray-300 mb-6">
-          Selecciona una ruta en el menú para visualizar su recorrido en el mapa y la información relevante.
-        </p>
+    <div className="p-4">
+      <h2 className="text-3xl font-bold text-center mb-2 text-green-500">
+        Mapa de Rutas de Transporte
+      </h2>
+      <p className="text-center text-gray-300 mb-6">
+        Selecciona una ruta en el menú para visualizar su recorrido en el mapa y la información relevante.
+      </p>
 
-        {/* Selector de rutas */}
-        <div className="flex justify-center items-center p-4">
-          <label>
-            Selecciona una Ruta:
-            <select
-              value={selectedRoute}
-              onChange={handleRouteChange}
-              className="ml-2 p-2 border rounded"
-            >
-              <option value="none">Selecciona...</option>
-              <option value="Fuentes-Milenio">Fuentes-Milenio</option>
-              <option value="scheifler">Scheifler</option>
-              <option value="colon">Colon</option>
-            </select>
-          </label>
+      <div className="flex justify-center items-center p-4">
+        <label>
+          Selecciona una Ruta:
+          <select
+            value={selectedRoute}
+            onChange={handleRouteChange}
+            className="ml-2 p-2 border rounded"
+          >
+            <option value="none">Selecciona...</option>
+            <option value="Fuentes-Milenio">Fuentes-Milenio</option>
+            <option value="scheifler">Scheifler</option>
+            <option value="colon">Colon</option>
+          </select>
+        </label>
+      </div>
+
+      {geoData && geoData.properties && (
+        <div className="p-2 bg-gray-800 text-gray-200 rounded text-sm mb-4">
+          <p><strong>Ruta:</strong> {geoData.properties.NAME}</p>
+          <p><strong>Descripción:</strong> {geoData.properties.DESCRIPTION}</p>
         </div>
+      )}
 
-        {/* Información de la ruta seleccionada */}
-        {geoData && geoData.properties && (
-          <div className="p-2 bg-gray-800 text-gray-200 rounded text-sm mb-4">
-            <p><strong>Ruta:</strong> {geoData.properties.NAME}</p>
-            <p><strong>Descripción:</strong> {geoData.properties.DESCRIPTION}</p>
-          </div>
+      <MapContainer center={center} zoom={15} scrollWheelZoom={true} style={{ height: "75vh", width: "100wh" }}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+        <SetViewOnRouteChange />
+
+        {geoData && (
+          <GeoJSON key={selectedRoute} data={geoData} style={() => ({ color: "#ff7800", weight: 5, fillColor: "#ff7800", fillOpacity: 0.2 })} />
         )}
 
-        {/* Contenedor del Mapa */}
-        <MapContainer center={center} zoom={15} scrollWheelZoom={true} style={{ height: "75vh", width: "100wh" }}>
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {busData.map((bus, index) => (
+          <Marker key={index} position={bus.coords}>
+            <Popup>
+              <p><strong>Ocupación:</strong> {getPassengerEmoji(bus.passengers)}</p>
+              <p><strong>Estado:</strong> Ruta en servicio</p>
+            </Popup>
+          </Marker>
+        ))}
 
-          {/* Ajuste del centro del mapa */}
-          <SetViewOnRouteChange />
-
-          {/* Verifica que geoData tenga datos válidos antes de renderizar GeoJSON */}
-          {geoData && (
-            <GeoJSON key={selectedRoute} data={geoData} style={() => ({ color: "#ff7800", weight: 5, fillColor: "#ff7800", fillOpacity: 0.2 })} />
-          )}
-
-          {/* Renderizado de marcadores de bus */}
-          {busData.map((bus, index) => (
-            <Marker key={index} position={bus.coords}>
-              <Popup>
-                <p><strong>Ocupación:</strong> {getPassengerEmoji(bus.passengers)}</p>
-                <p><strong>Estado:</strong> Ruta en servicio</p>
-              </Popup>
-            </Marker>
-          ))}
-
-          <ScaleControl imperial={false} />
-        </MapContainer>
-      </div>
-    </>
+        <ScaleControl imperial={false} />
+      </MapContainer>
+    </div>
   );
 };
 
