@@ -1,59 +1,78 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { FaFacebook, FaTwitter, FaGoogle, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom"; // Importamos useNavigate para la redirección
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
-    const handleLogin = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Aquí podría ir la lógica de autenticación
-        alert(`Bienvenido, ${username}`);
+    const handleLogin = () => {
+        if (!username || !password) {
+            alert("Por favor, ingresa tu usuario y contraseña.");
+            return;
+        }
+        alert(`Bienvenido, ${username}!`);
+        setUsername('');
+        setPassword('');
+        navigate("/map");
     };
 
     return (
-        <div className="flex items-center justify-center h-screen bg-gray-800 text-white">
-            <div className="w-full max-w-xs">
-                <h2 className="text-2xl font-bold text-center mb-6">Iniciar Sesión</h2>
-                <form className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleLogin}>
-                    <div className="mb-4">
-                        <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="username">
-                            Usuario
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="username"
-                            type="text"
-                            placeholder="Usuario"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-6">
-                        <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">
-                            Contraseña
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="password"
-                            type="password"
-                            placeholder="********"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div className="flex items-center justify-between">
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit"
-                        >
-                            Iniciar Sesión
-                        </button>
-                        <Link to="/register" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-                            Crear cuenta
-                        </Link>
-                    </div>
-                </form>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-dark text-white" style={{ marginTop: '-50px' }}>
+            <div className="p-8 bg-gray-800 rounded-lg shadow-lg w-full max-w-lg">
+                <h2 className="text-4xl font-bold text-center text-green-500 mb-4">Iniciar Sesión</h2>
+                <p className="text-center text-lg mb-6 text-gray-200">
+                    Accede a tu cuenta o utiliza una de las opciones de acceso rápido.
+                </p>
+
+                <div className="flex justify-between gap-4 mb-6">
+                    <button className="flex items-center justify-center w-1/5 p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition-all">
+                        <FaFacebook size={28} />
+                    </button>
+                    <button className="flex items-center justify-center w-1/5 p-3 bg-blue-400 rounded-full text-white hover:bg-blue-500 transition-all">
+                        <FaTwitter size={28} />
+                    </button>
+                    <button className="flex items-center justify-center w-1/5 p-3 bg-red-600 rounded-full text-white hover:bg-red-700 transition-all">
+                        <FaGoogle size={28} />
+                    </button>
+                    <button className="flex items-center justify-center w-1/5 p-3 bg-blue-700 rounded-full text-white hover:bg-blue-800 transition-all">
+                        <FaLinkedin size={28} />
+                    </button>
+                    <button className="flex items-center justify-center w-1/5 p-3 bg-gray-700 rounded-full text-white hover:bg-gray-800 transition-all">
+                        <FaGithub size={28} />
+                    </button>
+                </div>
+
+                <div className="mb-6">
+                    <label className="block text-gray-300 text-lg font-bold mb-2">Usuario</label>
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="w-full p-3 rounded-md text-white placeholder-gray-500"
+                        placeholder="Usuario"
+                    />
+                </div>
+                <div className="mb-6">
+                    <label className="block text-gray-300 text-lg font-bold mb-2">Contraseña</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full p-3 rounded-md text-white placeholder-gray-500"
+                        placeholder="Contraseña"
+                    />
+                </div>
+                <button
+                    onClick={handleLogin}
+                    className="w-full bg-green-500 p-3 rounded-md text-white font-bold text-lg hover:bg-green-700 transition-all"
+                >
+                    Iniciar Sesión
+                </button>
+                <p className="text-center text-gray-400 mt-4 text-lg">
+                    ¿No tienes una cuenta? <a href="#" className="text-blue-400 hover:underline">Crear cuenta</a>
+                </p>
             </div>
         </div>
     );
