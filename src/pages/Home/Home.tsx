@@ -62,22 +62,20 @@ const Home = () => {
         <p className="mb-4">
           Para ejecutar la aplicación, clona el repositorio y ejecuta los siguientes comandos:
         </p>
-        <div className="bg-gray-900 rounded-lg p-4 text-lg mb-6">
-          <pre className="text-green-400">
-            <code>git clone {githubUrl}</code>
-          </pre>
-          <pre className="text-green-400">
-            <code>cd IoT-Bus-Tracker-React-App</code>
-          </pre>
-          <pre className="text-green-400">
-            <code>npm install</code>
-          </pre>
-          <pre className="text-green-400">
-            <code>npm run dev</code>
-          </pre>
-        </div>
-        <p className="mb-8">
-          La aplicación se ejecutará en: <span className="text-green-400">http://localhost:5173</span>
+        <pre>
+          <code>git clone https://github.com/pablogarc/IoT-Bus-Tracker-React-App.git</code>
+        </pre>
+        <pre>
+          <code>cd IoT-Bus-Tracker-React-App</code>
+        </pre>
+        <pre>
+          <code>npm install</code>
+        </pre>
+        <pre>
+          <code>npm run dev</code>
+        </pre>
+        <p className="mt-3 mb-6">
+          The app will be running on http://localhost:5173
         </p>
 
         <h2 className="font-bold text-2xl mb-2 text-yellow-300">Para más información sobre Leaflet, visita:</h2>

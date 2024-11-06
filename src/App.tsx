@@ -4,8 +4,8 @@ import Home from "./pages/Home/Home";
 import Map from "./pages/Map/Map";
 import Cashback from "./pages/Cashback/Cashback";
 import Security from "./pages/Security/Security";
-import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
 import ReloadCard from "./pages/ReloadCard/ReloadCard";
 import Logo from "/logo.jpg";
 
@@ -97,6 +97,7 @@ function App() {
         <Route path="/map" element={<Map />} />
         <Route path="/cashback" element={<Cashback />} />
         <Route path="/security" element={<Security />} />
+        <Route path="/reload-card" element={<ReloadCard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reload" element={<ReloadCard />} />
