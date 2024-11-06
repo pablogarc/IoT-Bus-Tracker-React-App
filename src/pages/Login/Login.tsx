@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { FaFacebook, FaTwitter, FaGoogle, FaLinkedin, FaGithub } from 'react-icons/fa';
-import { useNavigate } from "react-router-dom"; // Importamos useNavigate para la redirección
+import { useNavigate } from "react-router-dom";
+import Register from '../Register/Register'; // Importamos el componente Register
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showRegisterModal, setShowRegisterModal] = useState(false); // Estado para controlar el modal
     const navigate = useNavigate();
 
     const handleLogin = () => {
@@ -16,6 +18,14 @@ const Login: React.FC = () => {
         setUsername('');
         setPassword('');
         navigate("/map");
+    };
+
+    const openRegisterModal = () => {
+        setShowRegisterModal(true);
+    };
+
+    const closeRegisterModal = () => {
+        setShowRegisterModal(false);
     };
 
     return (
@@ -71,9 +81,20 @@ const Login: React.FC = () => {
                     Iniciar Sesión
                 </button>
                 <p className="text-center text-gray-400 mt-4 text-lg">
-                    ¿No tienes una cuenta? <a href="#" className="text-blue-400 hover:underline">Crear cuenta</a>
+                    ¿No tienes una cuenta?{" "}
+                    <a href="#" className="text-blue-400 hover:underline" onClick={(e) => {
+                        e.preventDefault();
+                        openRegisterModal();
+                    }}>
+                        Crear cuenta
+                    </a>
                 </p>
             </div>
+
+            {/* Modal de Registro */}
+            {showRegisterModal && (
+                <Register onClose={closeRegisterModal} />
+            )}
         </div>
     );
 };
