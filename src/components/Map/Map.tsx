@@ -9,6 +9,19 @@ import {
   useMap,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from 'leaflet';
+
+// Crear una nueva instancia de Icono personalizada
+const customIcon = new L.Icon({
+  iconRetinaUrl: '/assets/marker-icon-2x.png',
+  iconUrl: '/assets/marker-icon.png',
+  shadowUrl: '/assets/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
 import { colon, routeFuentesAndMilenio, scheifler } from "../../utils/geojson";
 
 type RouteOption = Record<string, any>;
@@ -20,7 +33,6 @@ const MapComponent = () => {
   const [busData, setBusData] = useState<BusData[]>([]);
   const [center, setCenter] = useState<[number, number]>([20.609969640227987, -103.4146309267151]);
 
-  // Asigna cada ruta al GeoJSON correcto
   const routeOptions: RouteOption = {
     "Fuentes-Milenio": routeFuentesAndMilenio,
     "scheifler": scheifler,
@@ -41,22 +53,18 @@ const MapComponent = () => {
   };
 
   const handleRouteChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // Al cambiar de ruta, primero limpiamos `geoData` y `busData` temporalmente
     setGeoData(null);
     setBusData([]);
-    setSelectedRoute(e.target.value); // Establecemos la nueva ruta seleccionada
+    setSelectedRoute(e.target.value);
   };
 
-  // Efecto para cargar los datos de la nueva ruta después de la limpieza
   useEffect(() => {
-    // Solo carga los datos si `selectedRoute` es diferente de "none"
     if (selectedRoute !== "none") {
-      // Introducimos un pequeño retraso para asegurarnos de que la limpieza se complete antes de cargar
       setTimeout(() => {
         setGeoData(routeOptions[selectedRoute]);
         setBusData(routeBuses[selectedRoute]);
-        setCenter(routeBuses[selectedRoute][0].coords); // Cambia el centro según la primera coordenada de la ruta
-      }, 100); // 100 ms es suficiente para simular la limpieza
+        setCenter(routeBuses[selectedRoute][0].coords);
+      }, 100);
     }
   }, [selectedRoute]);
 
@@ -116,7 +124,7 @@ const MapComponent = () => {
         )}
 
         {busData.map((bus, index) => (
-          <Marker key={index} position={bus.coords}>
+          <Marker key={index} position={bus.coords} icon={customIcon}>
             <Popup>
               <p><strong>Ocupación:</strong> {getPassengerEmoji(bus.passengers)}</p>
               <p><strong>Estado:</strong> Ruta en servicio</p>
