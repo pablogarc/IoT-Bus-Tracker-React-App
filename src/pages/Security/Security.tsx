@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ExclamationTriangleIcon, MapIcon, UserGroupIcon } from '@heroicons/react/24/solid';
 
 interface Report {
@@ -10,18 +11,26 @@ interface Report {
 }
 
 const initialReports: Report[] = [
-    { category: "Incidente", type: "Robo", location: "Centro", timeAgo: "Hace 2 horas", description: "Robo en la parada del centro." },
-    { category: "Incidente", type: "Vandalismo", location: "Línea 4", timeAgo: "Hace 5 horas", description: "Grafiti en el autobús." },
-    { category: "Incidente", type: "Accidente", location: "Av. Juárez", timeAgo: "Ayer", description: "Colisión menor sin heridos." },
+    { category: "Incidente", type: "Robo", location: "Centro de Guadalajara", timeAgo: "Hace 2 horas", description: "Robo en la parada del centro." },
+    { category: "Incidente", type: "Vandalismo", location: "Línea 3", timeAgo: "Hace 5 horas", description: "Grafiti en el tren." },
+    { category: "Incidente", type: "Accidente", location: "Av. Vallarta", timeAgo: "Ayer", description: "Colisión menor sin heridos." },
     { category: "Incidente", type: "Congestión", location: "López Mateos", timeAgo: "Hace 30 minutos", description: "Tráfico intenso debido a obras." },
-    { category: "Ayuda", type: "Asistencia", location: "Parque Revolución", timeAgo: "Hace 10 minutos", description: "Solicita ayuda para cargar el automóvil." }
+    { category: "Ayuda", type: "Asistencia", location: "Parque Agua Azul", timeAgo: "Hace 10 minutos", description: "Solicita ayuda para cargar el automóvil." }
 ];
 
 const Security = () => {
+    const location = useLocation(); // Define location para evitar errores
     const [showReportModal, setShowReportModal] = useState(false);
     const [showDashboardModal, setShowDashboardModal] = useState(false);
     const [showHelpModal, setShowHelpModal] = useState(false);
     const [reports, setReports] = useState<Report[]>(initialReports);
+
+    useEffect(() => {
+        const modalOption = location.state?.modal;
+        if (modalOption === 'incident') setShowReportModal(true);
+        if (modalOption === 'dashboard') setShowDashboardModal(true);
+        if (modalOption === 'help') setShowHelpModal(true);
+    }, [location.state]);
 
     const handleSubmitReport = (e: React.FormEvent) => {
         e.preventDefault();
