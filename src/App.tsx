@@ -86,7 +86,7 @@ function App() {
           <div className="flex items-center hover:bg-purple-500 hover:rounded-full transition-all">
             <Link to="/login" className="p-3 flex items-center gap-2">
               <UserIcon className="h-5 w-5 text-purple-400" />
-              Inicio de sesión
+              Iniciar sesión
             </Link>
           </div>
         </div>
