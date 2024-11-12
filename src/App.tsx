@@ -46,7 +46,7 @@ function App() {
           <div className="flex items-center hover:bg-blue-500 hover:rounded-full transition-all">
             <Link to="/" className="p-3 flex items-center gap-2">
               <HomeIcon className="h-5 w-5 text-blue-400" />
-              Home
+              Inicio
             </Link>
           </div>
 
@@ -54,7 +54,7 @@ function App() {
           <div className="flex items-center hover:bg-yellow-500 hover:rounded-full transition-all">
             <Link to="/map" className="p-3 flex items-center gap-2">
               <MapIcon className="h-5 w-5 text-yellow-400" />
-              Map
+              Mapa
             </Link>
           </div>
 
@@ -86,7 +86,7 @@ function App() {
           <div className="flex items-center hover:bg-purple-500 hover:rounded-full transition-all">
             <Link to="/login" className="p-3 flex items-center gap-2">
               <UserIcon className="h-5 w-5 text-purple-400" />
-              Login
+              Inicio de sesión
             </Link>
           </div>
         </div>
