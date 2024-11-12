@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -9,7 +10,6 @@ import Login from "./pages/Login/Login";
 import ReloadCard from "./pages/ReloadCard/ReloadCard";
 import Logo from "/logo.jpg";
 
-// Iconos de Heroicons o tu biblioteca de iconos
 import {
   HomeIcon,
   MapIcon,
@@ -17,22 +17,25 @@ import {
   ExclamationTriangleIcon,
   CreditCardIcon,
   UserIcon,
+  Bars3Icon,
+  XMarkIcon
 } from '@heroicons/react/24/solid';
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   return (
     <>
-      <nav className="flex items-center justify-between p-4 bg-gray-800 text-white">
-        {/* Contenedor del logo y título */}
-        <div className="flex items-center gap-4">
-          {/* Logo aún más grande */}
-          <img src={Logo} alt="Movi+" className="h-20 w-22" />
-
-          {/* Título principal un poco más grande */}
-          <h1 className="text-4xl font-bold text-green-500 transition-all">
+      <nav className="flex flex-col items-center justify-between p-4 bg-gray-800 text-white lg:flex-row">
+        {/* Contenedor del logo, título y slogan */}
+        <div className="flex items-center gap-4 mb-4 lg:mb-0">
+          <img src={Logo} alt="Movi+" className="h-16 w-16" />
+          <h1 className="text-3xl font-bold text-green-500">
             Movi+
-            <span className="ml-3 text-2xl font-normal text-white">
-              {/* Efecto hover solo en las palabras "más" */}
+            <span className="ml-3 text-xl font-normal text-white block lg:inline-block">
+              {/* Hover y alineación */}
               <span className="hover:text-green-400 transition-all"> Más </span> seguridad,
               <span className="hover:text-green-400 transition-all"> más </span> recompensas,
               <span className="hover:text-green-400 transition-all"> más </span> movilidad
@@ -40,55 +43,44 @@ function App() {
           </h1>
         </div>
 
-        {/* Links de navegación */}
-        <div className="flex gap-8">
-          {/* Home */}
-          <div className="flex items-center hover:bg-blue-500 hover:rounded-full transition-all">
-            <Link to="/" className="p-3 flex items-center gap-2">
-              <HomeIcon className="h-5 w-5 text-blue-400" />
-              Inicio
-            </Link>
-          </div>
+        {/* Botón de menú hamburguesa para pantallas menores a lg */}
+        <button
+          onClick={toggleMenu}
+          className="block lg:hidden p-2"
+        >
+          {isMenuOpen ? (
+            <XMarkIcon className="h-8 w-8 text-white" />
+          ) : (
+            <Bars3Icon className="h-8 w-8 text-white" />
+          )}
+        </button>
 
-          {/* Map */}
-          <div className="flex items-center hover:bg-yellow-500 hover:rounded-full transition-all">
-            <Link to="/map" className="p-3 flex items-center gap-2">
-              <MapIcon className="h-5 w-5 text-yellow-400" />
-              Mapa
-            </Link>
-          </div>
-
-          {/* Cashback */}
-          <div className="flex items-center hover:bg-green-700 hover:rounded-full transition-all">
-            <Link to="/cashback" className="p-3 flex items-center gap-2">
-              <CurrencyDollarIcon className="h-5 w-5 text-green-600" />
-              Cashback
-            </Link>
-          </div>
-
-          {/* Seguridad */}
-          <div className="flex items-center hover:bg-red-500 hover:rounded-full transition-all">
-            <Link to="/security" className="p-3 flex items-center gap-2">
-              <ExclamationTriangleIcon className="h-5 w-5 text-red-500" />
-              Seguridad
-            </Link>
-          </div>
-
-          {/* Recargar Tarjeta */}
-          <div className="flex items-center hover:bg-yellow-500 hover:rounded-full transition-all">
-            <Link to="/reload" className="p-3 flex items-center gap-2">
-              <CreditCardIcon className="h-5 w-5 text-yellow-400" />
-              Recargar
-            </Link>
-          </div>
-
-          {/* Login / Register */}
-          <div className="flex items-center hover:bg-purple-500 hover:rounded-full transition-all">
-            <Link to="/login" className="p-3 flex items-center gap-2">
-              <UserIcon className="h-5 w-5 text-purple-400" />
-              Iniciar sesión
-            </Link>
-          </div>
+        {/* Links de navegación, visible solo en pantallas lg y mayores */}
+        <div className={`lg:flex gap-8 ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
+          <Link to="/" className="p-3 flex items-center gap-2 hover:bg-blue-500 hover:rounded-full">
+            <HomeIcon className="h-5 w-5 text-blue-400" />
+            Inicio
+          </Link>
+          <Link to="/map" className="p-3 flex items-center gap-2 hover:bg-yellow-500 hover:rounded-full">
+            <MapIcon className="h-5 w-5 text-yellow-400" />
+            Mapa
+          </Link>
+          <Link to="/cashback" className="p-3 flex items-center gap-2 hover:bg-green-700 hover:rounded-full">
+            <CurrencyDollarIcon className="h-5 w-5 text-green-600" />
+            Cashback
+          </Link>
+          <Link to="/security" className="p-3 flex items-center gap-2 hover:bg-red-500 hover:rounded-full">
+            <ExclamationTriangleIcon className="h-5 w-5 text-red-500" />
+            Seguridad
+          </Link>
+          <Link to="/reload" className="p-3 flex items-center gap-2 hover:bg-yellow-500 hover:rounded-full">
+            <CreditCardIcon className="h-5 w-5 text-yellow-400" />
+            Recargar
+          </Link>
+          <Link to="/login" className="p-3 flex items-center gap-2 hover:bg-purple-500 hover:rounded-full">
+            <UserIcon className="h-5 w-5 text-purple-400" />
+            Iniciar sesión
+          </Link>
         </div>
       </nav>
 
@@ -99,7 +91,7 @@ function App() {
         <Route path="/security" element={<Security />} />
         <Route path="/reload-card" element={<ReloadCard />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register onClose={() => {}} />} />
+        <Route path="/register" element={<Register onClose={() => { }} />} />
         <Route path="/reload" element={<ReloadCard />} />
       </Routes>
     </>
