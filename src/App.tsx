@@ -90,9 +90,9 @@ function App() {
         <Route path="/cashback" element={<Cashback />} />
         <Route path="/security" element={<Security />} />
         <Route path="/reload-card" element={<ReloadCard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register onClose={() => { }} />} />
         <Route path="/reload" element={<ReloadCard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
